@@ -7,3 +7,6 @@
 li{
     list-style-type: none;
 }
+#button-container{
+    margin: 5px;
+}

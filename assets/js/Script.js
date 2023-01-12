@@ -8,6 +8,7 @@ var todayWeather = document.querySelector("#today-weather")
 var todayTemp = document.querySelector("#today-temp")
 var todayWind = document.querySelector("#today-wind")
 var todayHumidity = document.querySelector("#today-humidity")
+var buttonContainer = document.querySelector('#button-container')
 // city will = whatever tey put in tthe search bar
 function searchWeather(cityToSearch){
     fetch (`https://api.openweathermap.org/data/2.5/weather?q=${cityToSearch}&appid=7d7c0e8b5ef6dabfe82ee5b8f7bee962&units=imperial`).then(function(res){
@@ -46,14 +47,12 @@ function inputResults(cityLat,cityLong){
             var forecastDiv = document.createElement('div')
             forecastDiv.setAttribute("class", "col-2 card")
             forecastDiv.innerHTML =
-            `
-            <ul class= "list-group list-group-flush"> 
+            `<ul class= "list-group list-group-flush"> 
             <li class="list-group-item">Date: ${data.list[i].dt_txt} </li> 
             <li class="list-group-item"> <img src="http://openweathermap.org/img/wn/${data.list[i].weather[0].icon}@2x.png">  </li> 
             <li class="list-group-item"> Temp: ${data.list[i].main.temp}</li> 
-            <li class="list-group-item"> Wind: ${data.list[i].wind.speed} </li> 
-            <li class="list-group-item"> Humidity: ${data.list[i].main.humidity}</li>
-            </ul>`
+            <li class="list-group-item"> Wind: ${data.list[i].wind.speed} MPH </li> 
+            <li class="list-group-item"> Humidity: ${data.list[i].main.humidity}</li></ul>`
             forecastContainer.append(forecastDiv)
         }
         // appending 5 day forecast
@@ -67,7 +66,12 @@ function inputResults(cityLat,cityLong){
 
 searchForm.addEventListener("submit",function(e){
     e.preventDefault();
-    console.log(searchCityInput)
+    var pastCitySearched = document.createElement('button')
+    pastCitySearched.setAttribute("class", "search-result-button")
+    pastCitySearched.textContent = searchCityInput.value
+    localStorage.setItem(`(${searchCityInput.value}`,`(${searchCityInput.value}`)
+    console.log(searchCityInput.value)
     var cityToSearch = searchCityInput.value
+    buttonContainer.append(pastCitySearched)
     searchWeather(cityToSearch)
 })
