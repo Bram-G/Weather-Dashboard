@@ -48,6 +48,7 @@ function searchWeather(cityToSearch){
         inputResults(cityLat,cityLong)
     })
 }
+// function that takes lat and long and makes new elements based on 5 day api results
 function inputResults(cityLat,cityLong){
     fetch (`https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLong}&appid=7d7c0e8b5ef6dabfe82ee5b8f7bee962&units=imperial`).then(function(res){
         return res.json()
@@ -55,6 +56,7 @@ function inputResults(cityLat,cityLong){
         console.log(data)
         var forecastContainer = document.querySelector('#dayForecast')
         forecastContainer.innerHTML = ""
+        // uses +8 because api gives 40 results for 5 days
         for (let i = 0; i<data.list.length; i = i + 8){
             console.log(data.list[i])
             var forecastDiv = document.createElement('div')
@@ -76,7 +78,8 @@ function inputResults(cityLat,cityLong){
 
 
 }
-
+// event listener for submitting the city and runs appropriate functions
+// creates a button containing information from previous searches
 searchForm.addEventListener("submit",function(e){
     e.preventDefault();
     var pastCitySearched = document.createElement('button')
