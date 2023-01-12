@@ -10,6 +10,19 @@ var todayWind = document.querySelector("#today-wind")
 var todayHumidity = document.querySelector("#today-humidity")
 var buttonContainer = document.querySelector('#button-container')
 // city will = whatever tey put in tthe search bar
+setPastSearches()
+
+function setPastSearches(){
+    for (let i = 0; i<localStorage.length;i++){
+        var pastSearches = document.createElement('button')
+        pastSearches.textContent = localStorage.key(i)
+        buttonContainer.append(pastSearches)
+        pastSearches.addEventListener('click',()=>{
+            searchWeather(pastSearches.textContent)
+        })
+        
+    }
+}
 function searchWeather(cityToSearch){
     fetch (`https://api.openweathermap.org/data/2.5/weather?q=${cityToSearch}&appid=7d7c0e8b5ef6dabfe82ee5b8f7bee962&units=imperial`).then(function(res){
         return res.json()
@@ -69,7 +82,7 @@ searchForm.addEventListener("submit",function(e){
     var pastCitySearched = document.createElement('button')
     pastCitySearched.setAttribute("class", "search-result-button")
     pastCitySearched.textContent = searchCityInput.value
-    localStorage.setItem(`(${searchCityInput.value}`,`(${searchCityInput.value}`)
+    localStorage.setItem(`${searchCityInput.value}`,`${searchCityInput.value}`)
     console.log(searchCityInput.value)
     var cityToSearch = searchCityInput.value
     buttonContainer.append(pastCitySearched)
